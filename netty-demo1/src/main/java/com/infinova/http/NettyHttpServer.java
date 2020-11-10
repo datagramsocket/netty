@@ -10,10 +10,10 @@ public class NettyHttpServer {
 
     public static void main(String[] args) {
         ServerBootstrap serverBootstrap = new ServerBootstrap();
-        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
+        EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         ChannelFuture channelFuture = serverBootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
-                .childHandler(new HttpChannelInitializer()).bind(6688);
+                .handler(null).childHandler(new HttpChannelInitializer()).bind(6688);
         channelFuture.addListener((future) -> {
             if(future.isSuccess()){
                 System.out.println("bind 6668 success");
